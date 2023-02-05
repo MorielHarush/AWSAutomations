@@ -5,4 +5,6 @@ EC2Enum - outputs all available EC2 in the exsiting account. (good for PT / Asse
 
 RolesEnum- outputs all the roles attached to user (good for PT/ Assessment)
 
+EC2AliveChecker - outputs all running EC2 in the specified availability zone. (Public IP & Running state)
+
 * All outputs are filtered. 

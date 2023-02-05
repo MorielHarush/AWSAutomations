@@ -1,9 +1,11 @@
 import subprocess
 import json
 
+regionname = input("Enter Region: ")
+profilename = input("Enter Profile Name: ")
 def filter_ec2_instances():
     # Run the AWS CLI command and store the output in a variable
-    output = subprocess.check_output(["aws", "ec2", "describe-instances", "--region", "us-east-1"], universal_newlines=True)
+    output = subprocess.check_output(["aws", "ec2", "describe-instances", "--region", regionname, "--profile", profilename], universal_newlines=True)
 
     # Convert the output to a JSON object
     instances = json.loads(output)
@@ -20,14 +22,16 @@ def filter_ec2_instances():
                 'SecurityGroups': instance.get('SecurityGroups', []),
                 'Tags': instance.get('Tags', []),
                 'Placement': instance.get('Placement', {}),
-                'IamInstanceProfile': instance.get('IamInstanceProfile', {})
+                'IamInstanceProfile': instance.get('IamInstanceProfile', {}),
+                'SubnetId': instance.get('SubnetId', '')
             }
             filtered_instances.append(filtered_instance)
 
     # Write the filtered instances to a file
-    with open("ec2machine.txt", "w") as f:
+    with open("EC2req.txt", "w") as f:
         for instance in filtered_instances:
             f.write(json.dumps(instance, indent=4) + "\n")
 
 if __name__ == "__main__":
     filter_ec2_instances()
+    print("[*] The file EC2req.txt is ready")

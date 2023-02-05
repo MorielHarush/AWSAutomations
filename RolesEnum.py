@@ -13,10 +13,11 @@ def run_command(username):
 
 username = input("Enter your AWS profile name: ")
 output = run_command(username)
+print("Roles.txt is Ready!")
 
 if output:
     data = json.loads(output)
-    with open("roles.txt", "w") as roles_file:
+    with open("Roles.txt", "w") as roles_file:
         for role in data["Roles"]:
             role_name = role["RoleName"]
             role_id = role["RoleId"]
